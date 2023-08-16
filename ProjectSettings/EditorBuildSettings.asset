@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 07b6e7129cd8cc54e823baf1128ccf76
   - enabled: 1
-    path: Assets/Scenes/EndOfEvangelion.unity
+    path: Assets/Scenes/MainGame.unity
     guid: a338cc4f5fd5fbd4f9f67ed3ac3bd520
   m_configObjects: {}
