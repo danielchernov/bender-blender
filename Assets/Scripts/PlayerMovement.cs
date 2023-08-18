@@ -11,6 +11,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float _jumpForce = 10;
 
+    [SerializeField]
+    AudioSource _footstepsAudio;
+
+    [SerializeField]
+    AudioClip[] _footstepsSFX;
+
     Rigidbody _playerRb;
 
     bool _isGrounded;
@@ -33,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            //transform.Translate(Vector3.up * jumpForce);
             _playerRb.AddForce(Vector3.up * _jumpForce, ForceMode.Impulse);
         }
     }
@@ -42,6 +47,22 @@ public class PlayerMovement : MonoBehaviour
     {
         float movementX = Input.GetAxis("Horizontal");
         float movementY = Input.GetAxis("Vertical");
+
+        if (movementX != 0 || movementY != 0)
+        {
+            _footstepsAudio.enabled = true;
+            if (!_footstepsAudio.isPlaying)
+            {
+                _footstepsAudio.clip = _footstepsSFX[
+                    UnityEngine.Random.Range(0, _footstepsSFX.Length)
+                ];
+                _footstepsAudio.Play();
+            }
+        }
+        else
+        {
+            _footstepsAudio.enabled = false;
+        }
 
         Vector3 direction = new Vector3(movementX, 0, movementY);
 
@@ -52,11 +73,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetButtonDown("Run"))
         {
-            _movementSpeed *= 3;
+            _movementSpeed *= 2;
+            _footstepsAudio.pitch *= 1.5f;
         }
         else if (Input.GetButtonUp("Run"))
         {
-            _movementSpeed /= 3;
+            _movementSpeed /= 2;
+            _footstepsAudio.pitch /= 1.5f;
         }
     }
 
