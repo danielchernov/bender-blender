@@ -107,8 +107,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 2, z: 1.2}
-  m_Center: {x: 0.5, y: 0, z: 0.6}
+  m_Size: {x: 1.5, y: 2, z: 1.5}
+  m_Center: {x: 0.5, y: 0, z: 0.75}
 --- !u!114 &4542290523566609629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,6 +123,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggered: 0
   _doorOutline: {fileID: 0}
+  _tutorialText: {fileID: 0}
+  _otherCollider: {fileID: 5079107842810994688}
 --- !u!1 &4669928886712668980
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,8 +177,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 2, z: 1.2}
-  m_Center: {x: 0.5, y: 0, z: -0.6}
+  m_Size: {x: 1.5, y: 2, z: 1.5}
+  m_Center: {x: 0.5, y: 0, z: -0.75}
 --- !u!114 &5079107842810994688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,3 +193,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isTriggered: 0
   _doorOutline: {fileID: 0}
+  _tutorialText: {fileID: 0}
+  _otherCollider: {fileID: 4542290523566609629}

@@ -19,24 +19,24 @@ public class DoorManager : MonoBehaviour
     [SerializeField]
     AudioClip[] _doorSFX;
 
-    RaycastHit rayHit;
-    bool _watchingDoor;
-    bool _watchingColliders;
+    // RaycastHit rayHit;
+    // bool _watchingDoor;
+    // bool _watchingColliders;
 
     void Update()
     {
         if (Input.GetButtonDown("Interact"))
         {
-            Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Physics.Raycast(rayOrigin, out rayHit);
-            _watchingDoor = _door == rayHit.transform;
+            // Physics.Raycast(rayOrigin, out rayHit);
+            // _watchingDoor = _door == rayHit.transform;
 
-            _watchingColliders =
-                _doorColliders[0].transform == rayHit.transform
-                || _doorColliders[1].transform == rayHit.transform;
+            // _watchingColliders =
+            //     _doorColliders[0].transform == rayHit.transform
+            //     || _doorColliders[1].transform == rayHit.transform;
 
-            if (_doorColliders[0].IsTriggered() && (_watchingDoor || _watchingColliders))
+            if (_doorColliders[0].IsTriggered())
             {
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)
                 {
@@ -54,7 +54,7 @@ public class DoorManager : MonoBehaviour
                     _doorAudio.PlayOneShot(_doorSFX[1], 0.5f);
                 }
             }
-            else if (_doorColliders[1].IsTriggered() && (_watchingDoor || _watchingColliders))
+            else if (_doorColliders[1].IsTriggered())
             {
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)
                 {
