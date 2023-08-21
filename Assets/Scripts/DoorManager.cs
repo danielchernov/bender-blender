@@ -19,23 +19,10 @@ public class DoorManager : MonoBehaviour
     [SerializeField]
     AudioClip[] _doorSFX;
 
-    // RaycastHit rayHit;
-    // bool _watchingDoor;
-    // bool _watchingColliders;
-
     void Update()
     {
         if (Input.GetButtonDown("Interact"))
         {
-            // Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            // Physics.Raycast(rayOrigin, out rayHit);
-            // _watchingDoor = _door == rayHit.transform;
-
-            // _watchingColliders =
-            //     _doorColliders[0].transform == rayHit.transform
-            //     || _doorColliders[1].transform == rayHit.transform;
-
             if (_doorColliders[0].IsTriggered())
             {
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)

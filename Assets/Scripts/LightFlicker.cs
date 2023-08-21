@@ -7,6 +7,12 @@ public class LightFlicker : MonoBehaviour
     [SerializeField]
     Animator _flashlightAnimator;
 
+    [SerializeField]
+    float _timeOn = 2f;
+
+    [SerializeField]
+    float _timeOff = 0.3f;
+
     void Start()
     {
         StartCoroutine(LightFlickerRoutine());
@@ -14,9 +20,9 @@ public class LightFlicker : MonoBehaviour
 
     IEnumerator LightFlickerRoutine()
     {
-        yield return new WaitForSeconds(Random.Range(0f, 1.5f));
+        yield return new WaitForSeconds(Random.Range(0f, _timeOn));
         _flashlightAnimator.SetBool("FlashlightOn", true);
-        yield return new WaitForSeconds(Random.Range(0.03f, 0.3f));
+        yield return new WaitForSeconds(Random.Range(0f, _timeOff));
         _flashlightAnimator.SetBool("FlashlightOn", false);
 
         StartCoroutine(LightFlickerRoutine());

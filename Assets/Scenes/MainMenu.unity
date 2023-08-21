@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -794,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &410611462
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2238,7 +2238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -300}
+  m_AnchoredPosition: {x: 0, y: -360}
   m_SizeDelta: {x: 320, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1384777144
@@ -2711,7 +2711,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 43.489937}
+  m_AnchoredPosition: {x: 0, y: 64}
   m_SizeDelta: {x: 1200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1540006669
@@ -2734,12 +2734,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Created by Daniel Chernov\n\nBender Character by Matt Groening and David
-    X. Cohen\n\nEnding Music: \"Komm, s\xFC\xDFer Tod\" by Arianne Schreiber & Hideaki
-    Anno\n\nAssets:\nSimple Water Shader - IgniteCoders\nSimple Keys - Gabies Assets\nStellar
-    Sky - Satsuru\n\nMedieval Tavern Pack - 3DeLucas\nRecord Player - VIS Games\nFree
-    Rug Pack - Azerilo\n15 low poly models - Rob Iuo\nApartment Kit - Brick Project
-    Studio\nToon Furniture - Elcanetay\n"
+  m_text: "Created by Daniel Chernov\n\n\nBender Character by Matt Groening and David
+    X. Cohen\n\nMusic: \"Komm, s\xFC\xDFer Tod\" by Arianne Schreiber & Hideaki Anno\n\"Simpsons
+    Halloween Theme\" - Danny Elfman?\n\n\nAssets:\nSimple Water Shader - IgniteCoders\nSimple
+    Keys - Gabies Assets\nStellar Sky - Satsuru\n\nMedieval Tavern Pack - 3DeLucas\nRecord
+    Player - VIS Games\nTV Set - Dmitriy Dryzhak\nFree Rug Pack - Azerilo\nOld \"USSR\"
+    Lamp - ESsplashkid\nRetro Lamps v.1 - Artur G.\nSimple Garage - AiKodex\nGardening
+    Tools Pack - Donopardo\n15 low poly models - Rob Iuo\nApartment Kit - Brick Project
+    Studio\nToon Furniture - Elcanetay\nBig Furniture Pack - Vertex Studio"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
   m_sharedMaterial: {fileID: -6943247214261959840, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
@@ -2766,8 +2768,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2873,7 +2875,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2006159411
 RectTransform:
   m_ObjectHideFlags: 0
