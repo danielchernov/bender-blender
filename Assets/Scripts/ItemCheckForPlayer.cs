@@ -15,6 +15,12 @@ public class ItemCheckForPlayer : MonoBehaviour
     RecordPlayer _recordPlayer;
     AudioSource _recordPlayerAudio;
 
+    [SerializeField]
+    AudioSource _SFXAudio;
+
+    [SerializeField]
+    AudioClip _switchSFX;
+
     MeshRenderer _tvRenderer;
     bool _tvOn = true;
     bool _isTriggered = false;
@@ -57,11 +63,13 @@ public class ItemCheckForPlayer : MonoBehaviour
                 {
                     _tvRenderer.materials[1].color = Color.black;
                     _tvOn = false;
+                    _SFXAudio.PlayOneShot(_switchSFX, 0.5f);
                 }
                 else
                 {
                     _tvRenderer.materials[1].color = Color.white;
                     _tvOn = true;
+                    _SFXAudio.PlayOneShot(_switchSFX, 0.5f);
                 }
             }
             else if (furni == Furniture.RecordPlayer)

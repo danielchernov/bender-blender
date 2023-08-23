@@ -12,6 +12,9 @@ public class UIManager : MonoBehaviour
     GameObject creditsMenu;
 
     [SerializeField]
+    GameObject controlsMenu;
+
+    [SerializeField]
     GameObject pauseMenu;
 
     void Awake()
@@ -43,10 +46,20 @@ public class UIManager : MonoBehaviour
         creditsMenu.SetActive(true);
     }
 
+    public void ShowControls()
+    {
+        mainMenu.SetActive(false);
+        controlsMenu.SetActive(true);
+    }
+
     public void BackToMenu()
     {
         mainMenu.SetActive(true);
-        creditsMenu.SetActive(false);
+
+        if (creditsMenu != null)
+            creditsMenu.SetActive(false);
+        if (controlsMenu != null)
+            controlsMenu.SetActive(false);
     }
 
     public void ResumeGame()

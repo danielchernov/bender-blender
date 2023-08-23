@@ -12,23 +12,35 @@ public class PlayerMouseLook : MonoBehaviour
     [SerializeField]
     Transform toFollow;
 
+    bool mouseLocked = true;
+
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        StartCoroutine(WaitAndChange());
     }
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        if (!mouseLocked)
+        {
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -80, 80);
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90, 90);
 
-        yRotation += mouseX;
-        //yRotation = Mathf.Clamp(yRotation, -90, 140);
+            yRotation += mouseX;
 
-        toFollow.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.localRotation = Quaternion.Euler(0, yRotation, 0);
+            toFollow.localRotation = Quaternion.Euler(xRotation, 0, 0);
+            transform.localRotation = Quaternion.Euler(0, yRotation + 90, 0);
+        }
+    }
+
+    IEnumerator WaitAndChange()
+    {
+        yield return new WaitForSeconds(0.2f);
+        mouseLocked = !mouseLocked;
     }
 }
