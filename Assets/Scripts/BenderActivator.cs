@@ -20,7 +20,7 @@ public class BenderActivator : MonoBehaviour
     AudioSource _benderAudio;
 
     [SerializeField]
-    AudioClip _benderSFX;
+    AudioClip[] _benderAssSFX;
 
     bool _alreadyActivated = false;
 
@@ -32,7 +32,7 @@ public class BenderActivator : MonoBehaviour
             _bender.SetActive(true);
 
             _sfxAudio.PlayOneShot(_doorOpenSFX, 0.5f);
-            _benderAudio.PlayOneShot(_benderSFX, 0.5f);
+            _benderAudio.PlayOneShot(_benderAssSFX[Random.Range(0, _benderAssSFX.Length)], 1.5f);
 
             _alreadyActivated = true;
         }

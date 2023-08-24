@@ -7,13 +7,23 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     AudioSource[] _backgroundAudio;
 
+    [SerializeField]
+    AudioSource _pauseMenuAudio;
+
+    [SerializeField]
+    AudioClip[] _openMenuSFX;
+
     void OnEnable()
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         for (int i = 0; i < _backgroundAudio.Length; i++)
-            _backgroundAudio[i].Pause();
+            if (_backgroundAudio[i] != null)
+                _backgroundAudio[i].Pause();
+
+        _pauseMenuAudio.PlayOneShot(_openMenuSFX[0], 0.2f);
     }
 
     void OnDisable()
@@ -22,6 +32,9 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         for (int i = 0; i < _backgroundAudio.Length; i++)
-            _backgroundAudio[i].UnPause();
+            if (_backgroundAudio[i] != null)
+                _backgroundAudio[i].UnPause();
+
+        _pauseMenuAudio.PlayOneShot(_openMenuSFX[1], 0.2f);
     }
 }

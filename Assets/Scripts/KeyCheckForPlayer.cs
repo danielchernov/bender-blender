@@ -17,9 +17,13 @@ public class KeyCheckForPlayer : MonoBehaviour
     [SerializeField]
     PlayerHasKey _playerKey;
 
-    bool _isTriggered = false;
+    [SerializeField]
+    AudioSource _sfxAudio;
 
-    private void Start() { }
+    [SerializeField]
+    AudioClip _keySFX;
+
+    bool _isTriggered = false;
 
     private void Update()
     {
@@ -32,6 +36,8 @@ public class KeyCheckForPlayer : MonoBehaviour
             _keyOutline.enabled = false;
             _tutorialText.transform.parent.gameObject.SetActive(false);
             _isTriggered = false;
+
+            _sfxAudio.PlayOneShot(_keySFX, 1f);
 
             gameObject.SetActive(false);
         }

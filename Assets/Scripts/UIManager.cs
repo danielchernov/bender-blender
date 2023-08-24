@@ -24,7 +24,9 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
-        if (pauseMenu != null && Input.GetButtonDown("Cancel"))
+        if (
+            pauseMenu != null && Input.GetButtonDown("Cancel") && !GameManager.Instance.IsGameOver()
+        )
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
         }
@@ -76,8 +78,9 @@ public class UIManager : MonoBehaviour
 
     public void QuitToMenu()
     {
-        // Time.timeScale = 1;
-        // Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(0);
     }
 }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 813137037627187630}
   - component: {fileID: 5531756670482298895}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: DoorColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ GameObject:
   - component: {fileID: 915558758996030348}
   - component: {fileID: 1781335177496042590}
   - component: {fileID: 4542290523566609629}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 6484392011222266620}
   - component: {fileID: 6336919189303334543}
   - component: {fileID: 5079107842810994688}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

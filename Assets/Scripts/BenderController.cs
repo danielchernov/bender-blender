@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BenderController : MonoBehaviour
 {
@@ -26,6 +27,18 @@ public class BenderController : MonoBehaviour
     [SerializeField]
     BenderCheckForPlayer _eyesCollider;
 
+    [SerializeField]
+    float _chaseSpeed = 8;
+
+    [SerializeField]
+    float _chaseTime = 50;
+
+    [SerializeField]
+    float _distanceToCloseIn = 20;
+
+    [SerializeField]
+    Image _benderClosingIn;
+
     bool _randomBool = false;
     bool _isChasing = false;
 
@@ -47,25 +60,42 @@ public class BenderController : MonoBehaviour
 
     void Update()
     {
+        Ray rayOrigin = new Ray(transform.position, (_player.position - transform.position));
+
+        Physics.Raycast(rayOrigin, out rayHit, Mathf.Infinity, _layerMask);
+
+        _raycastHit = _player.transform == rayHit.transform;
+
+        float distanceToPlayer = Vector3.Distance(transform.position, _player.position);
+
+        if (_raycastHit && distanceToPlayer < _distanceToCloseIn)
+        {
+            if (!_benderClosingIn.transform.parent.gameObject.activeSelf)
+            {
+                _benderClosingIn.transform.parent.gameObject.SetActive(true);
+            }
+
+            float newAlpha = Mathf.InverseLerp(_distanceToCloseIn, 5, distanceToPlayer);
+
+            _benderClosingIn.color = new Color(
+                1f - (newAlpha / 2f),
+                1f - (newAlpha / 2f),
+                1f - (newAlpha / 2f),
+                Mathf.Pow(newAlpha, 4)
+            );
+
+            if (distanceToPlayer <= 5)
+            {
+                GameManager.Instance.GameOver();
+            }
+        }
+        else if (_benderClosingIn.transform.parent.gameObject.activeSelf)
+        {
+            _benderClosingIn.transform.parent.gameObject.SetActive(false);
+        }
+
         if (_eyesCollider.IsWatching() && !_isChasing)
         {
-            Ray rayOrigin = new Ray(transform.position, (_player.position - transform.position));
-
-            //Physics.Raycast(rayOrigin, out rayHit);
-            Physics.Raycast(rayOrigin, out rayHit, Mathf.Infinity, _layerMask);
-
-            // Debug.DrawRay(
-            //     transform.position,
-            //     (_player.position - transform.position),
-            //     Color.green,
-            //     5f,
-            //     true
-            // );
-
-            //print(rayHit.transform);
-
-            _raycastHit = _player.transform == rayHit.transform;
-
             if (_raycastHit)
             {
                 //StopCoroutine(WalkingRoutine);
@@ -86,7 +116,7 @@ public class BenderController : MonoBehaviour
 
                 _benderVoiceAudio.PlayOneShot(
                     _benderVoiceSFX[Random.Range(0, _benderVoiceSFX.Length)],
-                    1f
+                    1.2f
                 );
 
                 _isChasing = true;
@@ -173,7 +203,7 @@ public class BenderController : MonoBehaviour
             _lostSightCounter = 0;
         }
 
-        if (_lostSightCounter >= 40)
+        if (_lostSightCounter >= _chaseTime)
         {
             _isChasing = false;
 
@@ -187,7 +217,7 @@ public class BenderController : MonoBehaviour
 
         _benderAgent.SetDestination(_player.position);
         _benderStepsAudio.enabled = true;
-        _benderAgent.speed = 9f;
+        _benderAgent.speed = _chaseSpeed;
         _benderStepsAudio.pitch = 3f;
 
         yield return new WaitForSeconds(0.1f);

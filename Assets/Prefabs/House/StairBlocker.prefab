@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7263379233438671979}
   - component: {fileID: 5634644613565544086}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Blocker1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8276685627970811406}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StairBlocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
