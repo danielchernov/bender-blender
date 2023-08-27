@@ -15,7 +15,10 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
     TextMeshProUGUI _tutorialText;
 
     [SerializeField]
-    GameObject _specialText;
+    TextMeshProUGUI _specialText;
+
+    [SerializeField]
+    GameObject _ending;
 
     RaycastHit rayHit;
     bool _watchingDoor;
@@ -42,6 +45,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
             {
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)
                 {
+                    _ending.SetActive(true);
                     _doorAnimator.SetInteger("DoorOpened", -1);
                     _doorAudio.PlayOneShot(_doorSFX[0], 0.5f);
                 }
@@ -53,7 +57,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
     {
         if (collider.tag == "Player")
         {
-            bool hasKey = collider.GetComponent<PlayerHasKey>().HasKey;
+            int hasKey = collider.GetComponent<PlayerHasKey>().HasKeys;
 
             Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -62,7 +66,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
 
             _watchingColliders = transform == rayHit.transform;
 
-            if ((_watchingDoor || _watchingColliders) && hasKey)
+            if ((_watchingDoor || _watchingColliders) && hasKey == 3)
             {
                 _isTriggered = true;
                 _doorOutline.enabled = true;
@@ -83,9 +87,21 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
                 _isTriggered = false;
                 _doorOutline.enabled = false;
 
-                if (!hasKey)
+                if (hasKey != 3)
                 {
-                    _specialText.SetActive(true);
+                    _specialText.transform.parent.gameObject.SetActive(true);
+                    if (hasKey == 2)
+                    {
+                        _specialText.text = "One more key to open the door";
+                    }
+                    else if (hasKey == 1)
+                    {
+                        _specialText.text = "Need to find 2 keys to open the door";
+                    }
+                    else if (hasKey == 0)
+                    {
+                        _specialText.text = "Need to find 3 keys to open the door";
+                    }
                 }
             }
         }
@@ -99,7 +115,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
             _doorOutline.enabled = false;
 
             _tutorialText.transform.parent.gameObject.SetActive(false);
-            _specialText.SetActive(false);
+            _specialText.transform.parent.gameObject.SetActive(false);
         }
     }
 

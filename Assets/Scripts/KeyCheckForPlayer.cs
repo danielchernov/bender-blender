@@ -12,7 +12,7 @@ public class KeyCheckForPlayer : MonoBehaviour
     TextMeshProUGUI _tutorialText;
 
     [SerializeField]
-    GameObject _keySprite;
+    GameObject[] _keySprites;
 
     [SerializeField]
     PlayerHasKey _playerKey;
@@ -21,7 +21,7 @@ public class KeyCheckForPlayer : MonoBehaviour
     AudioSource _sfxAudio;
 
     [SerializeField]
-    AudioClip _keySFX;
+    AudioClip[] _keySFX;
 
     bool _isTriggered = false;
 
@@ -29,15 +29,26 @@ public class KeyCheckForPlayer : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && _isTriggered)
         {
-            _keySprite.SetActive(true);
+            _playerKey.HasKeys++;
 
-            _playerKey.HasKey = true;
+            if (_playerKey.HasKeys == 1)
+            {
+                _keySprites[0].SetActive(true);
+            }
+            else if (_playerKey.HasKeys == 2)
+            {
+                _keySprites[1].SetActive(true);
+            }
+            else if (_playerKey.HasKeys == 3)
+            {
+                _keySprites[2].SetActive(true);
+            }
 
             _keyOutline.enabled = false;
             _tutorialText.transform.parent.gameObject.SetActive(false);
             _isTriggered = false;
 
-            _sfxAudio.PlayOneShot(_keySFX, 1f);
+            _sfxAudio.PlayOneShot(_keySFX[Random.Range(0, _keySFX.Length)], 1f);
 
             gameObject.SetActive(false);
         }

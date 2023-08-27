@@ -30,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     Transform _toFollow;
 
     [SerializeField]
+    Transform _groundRayFront;
+
+    [SerializeField]
+    Transform _groundRayBack;
+
+    [SerializeField]
     float _playerHeight;
 
     [SerializeField]
@@ -41,11 +47,15 @@ public class PlayerMovement : MonoBehaviour
     bool _isGrounded;
     bool _isJumping;
 
+    RaycastHit _groundInfoFront;
+    RaycastHit _groundInfoBack;
+
     Rigidbody _playerRb;
     Vector3 _moveDirection;
 
     float _movementX;
     float _movementY;
+    float _normalY;
 
     private void Start()
     {
@@ -56,16 +66,12 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //print("Grounded:" + _isGrounded);
-        //print(_playerRb.velocity.magnitude);
-        //        print(_movementSpeed);
+
+        Jump();
 
         Movement();
 
-        // SpeedControl();
-
         Run();
-
-        Jump();
     }
 
     private void FixedUpdate()
@@ -93,12 +99,55 @@ public class PlayerMovement : MonoBehaviour
 
     void Jump()
     {
-        _isGrounded = Physics.Raycast(
-            transform.position,
+        Physics.Raycast(
+            _groundRayBack.position,
             Vector3.down,
+            out _groundInfoBack,
             _playerHeight * 0.5f + 0.5f,
             _whatIsGround
         );
+
+        Physics.Raycast(
+            _groundRayFront.position,
+            Vector3.down,
+            out _groundInfoFront,
+            _playerHeight * 0.5f + 0.5f,
+            _whatIsGround
+        );
+
+        _isGrounded = _groundInfoFront.transform != null || _groundInfoBack.transform != null;
+
+        // _isGrounded = (
+        //     Physics.Raycast(
+        //         _groundRayFront.position,
+        //         Vector3.down,
+        //         out _groundInfoFront,
+        //         _playerHeight * 0.5f + 0.5f,
+        //         _whatIsGround
+        //     )
+        //     || Physics.Raycast(
+        //         _groundRayBack.position,
+        //         Vector3.down,
+        //         out _groundInfoBack,
+        //         _playerHeight * 0.5f + 0.5f,
+        //         _whatIsGround
+        //     )
+        // );
+
+        // Debug.DrawRay(
+        //     _groundRayFront.position,
+        //     Vector3.down * (_playerHeight * 0.5f + 0.5f),
+        //     Color.green,
+        //     2,
+        //     false
+        // );
+        // Debug.DrawRay(
+        //     _groundRayBack.position,
+        //     Vector3.down * (_playerHeight * 0.5f + 0.5f),
+        //     Color.green,
+        //     2,
+        //     false
+        // );
 
         if (_isGrounded)
         {
@@ -130,13 +179,61 @@ public class PlayerMovement : MonoBehaviour
                 ];
                 _footstepsAudio.Play();
             }
+
+            if (
+                (
+                    (_groundInfoFront.normal.y > 0.9f || _groundInfoFront.normal.y < 0.1f)
+                    && (_groundInfoBack.normal.y > 0.9f || _groundInfoBack.normal.y < 0.1f)
+                ) || !_isGrounded
+            )
+            {
+                _normalY = 0;
+            }
+            else if (_groundInfoFront.transform != null || _groundInfoBack.transform != null)
+            {
+                if (
+                    _groundInfoFront.transform == null
+                    || (
+                        _groundInfoBack.transform != null
+                        && _groundInfoFront.transform.position.y
+                            < _groundInfoBack.transform.position.y
+                    )
+                )
+                {
+                    // if (_groundInfoFront.transform != null)
+                    // {
+                    //     _normalY = -(_groundInfoFront.normal.y);
+                    // }
+                    // else
+                    // {
+                    _normalY = -(_groundInfoBack.normal.y);
+                    // }
+                }
+                else
+                {
+                    // if (_groundInfoBack.transform != null)
+                    // {
+                    //     _normalY = _groundInfoBack.normal.y;
+                    // }
+                    // else
+                    // {
+                    _normalY = _groundInfoFront.normal.y;
+                    // }
+                }
+            }
         }
         else
         {
             _footstepsAudio.enabled = false;
+            _normalY = 0;
         }
 
         _moveDirection = _toFollow.forward * _movementY + _toFollow.right * _movementX;
+        _moveDirection = new Vector3(_moveDirection.x, _normalY, _moveDirection.z);
+
+        // print(_moveDirection);
+        // print(_groundInfoFront.normal.y);
+        // print(_groundInfoBack.normal.y);
     }
 
     void Run()

@@ -16,6 +16,9 @@ public class BenderController : MonoBehaviour
     AudioSource _benderVoiceAudio;
 
     [SerializeField]
+    AudioSource _whiteNoiseAudio;
+
+    [SerializeField]
     AudioClip[] _benderVoiceSFX;
 
     [SerializeField]
@@ -26,6 +29,9 @@ public class BenderController : MonoBehaviour
 
     [SerializeField]
     BenderCheckForPlayer _eyesCollider;
+
+    [SerializeField]
+    float _walkSpeed = 4;
 
     [SerializeField]
     float _chaseSpeed = 8;
@@ -39,7 +45,10 @@ public class BenderController : MonoBehaviour
     [SerializeField]
     Image _benderClosingIn;
 
-    bool _randomBool = false;
+    [SerializeField]
+    Light[] _benderEyesLights;
+
+    int _randomNumber = 0;
     bool _isChasing = false;
 
     public Coroutine WalkingRoutine;
@@ -75,7 +84,14 @@ public class BenderController : MonoBehaviour
                 _benderClosingIn.transform.parent.gameObject.SetActive(true);
             }
 
+            if (!_whiteNoiseAudio.isPlaying)
+            {
+                _whiteNoiseAudio.Play();
+            }
+
             float newAlpha = Mathf.InverseLerp(_distanceToCloseIn, 5, distanceToPlayer);
+
+            _whiteNoiseAudio.volume = (Mathf.Pow(newAlpha, 2)) * 0.2f;
 
             _benderClosingIn.color = new Color(
                 1f - (newAlpha / 2f),
@@ -86,12 +102,13 @@ public class BenderController : MonoBehaviour
 
             if (distanceToPlayer <= 5)
             {
-                GameManager.Instance.GameOver();
+                StartCoroutine(GameManager.Instance.GameOver());
             }
         }
         else if (_benderClosingIn.transform.parent.gameObject.activeSelf)
         {
             _benderClosingIn.transform.parent.gameObject.SetActive(false);
+            _whiteNoiseAudio.volume = 0;
         }
 
         if (_eyesCollider.IsWatching() && !_isChasing)
@@ -100,16 +117,9 @@ public class BenderController : MonoBehaviour
             {
                 //StopCoroutine(WalkingRoutine);
 
-                if (Random.Range(0, 100) > 50)
-                {
-                    _randomBool = true;
-                }
-                else
-                {
-                    _randomBool = false;
-                }
+                _randomNumber = Random.Range(0, 4);
 
-                _benderAnimator.SetBool("isAlt", _randomBool);
+                _benderAnimator.SetInteger("AltNumber", _randomNumber);
                 _benderAnimator.SetBool("chasingPlayer", true);
 
                 StartCoroutine(ChasePlayer());
@@ -118,6 +128,9 @@ public class BenderController : MonoBehaviour
                     _benderVoiceSFX[Random.Range(0, _benderVoiceSFX.Length)],
                     1.2f
                 );
+
+                _benderEyesLights[0].color = Color.red;
+                _benderEyesLights[1].color = Color.red;
 
                 _isChasing = true;
             }
@@ -166,28 +179,24 @@ public class BenderController : MonoBehaviour
             _benderAgent.SetDestination(currentWaypoint);
 
             _benderStepsAudio.enabled = true;
-            _benderAgent.speed = 4f;
+            _benderAgent.speed = _walkSpeed;
             _benderStepsAudio.pitch = 1f;
+
+            _benderEyesLights[0].color = Color.white;
+            _benderEyesLights[1].color = Color.white;
 
             while (Vector3.Distance(transform.position, currentWaypoint) > 4)
             {
                 yield return null;
             }
 
-            if (Random.Range(0, 100) > 50)
-            {
-                _randomBool = true;
-            }
-            else
-            {
-                _randomBool = false;
-            }
-
             _benderAgent.velocity = Vector3.zero;
             _benderStepsAudio.enabled = false;
 
+            _randomNumber = Random.Range(0, 4);
+
             _benderAgent.ResetPath();
-            _benderAnimator.SetBool("isAlt", _randomBool);
+            _benderAnimator.SetInteger("AltNumber", _randomNumber);
             _benderAnimator.SetTrigger("Idle");
         }
     }

@@ -9,6 +9,7 @@ public class RestartOnFall : MonoBehaviour
         if (other.tag == "Player")
         {
             other.transform.position = new Vector3(30, 15, 21);
+            print("Fell off!");
         }
     }
 }

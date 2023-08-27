@@ -14,6 +14,18 @@ public class KeysManager : MonoBehaviour
             keyholder.SetActive(false);
         }
 
-        _keyHolders[Random.Range(0, _keyHolders.Length)].SetActive(true);
+        for (int i = 0; i < 3; i++)
+        {
+            int randomNumber = Random.Range(0, _keyHolders.Length);
+
+            if (!_keyHolders[randomNumber].activeSelf)
+            {
+                _keyHolders[randomNumber].SetActive(true);
+            }
+            else
+            {
+                i--;
+            }
+        }
     }
 }

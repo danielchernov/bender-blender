@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField]
-    AudioSource[] _backgroundAudio;
+    // [SerializeField]
+    // AudioSource[] _backgroundAudio;
 
     [SerializeField]
     AudioSource _pauseMenuAudio;
@@ -19,9 +19,9 @@ public class PauseMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        for (int i = 0; i < _backgroundAudio.Length; i++)
-            if (_backgroundAudio[i] != null)
-                _backgroundAudio[i].Pause();
+        for (int i = 0; i < GameManager.Instance.AllAudio.Length; i++)
+            if (GameManager.Instance.AllAudio[i] != null)
+                GameManager.Instance.AllAudio[i].Pause();
 
         _pauseMenuAudio.PlayOneShot(_openMenuSFX[0], 0.2f);
     }
@@ -31,9 +31,9 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
 
-        for (int i = 0; i < _backgroundAudio.Length; i++)
-            if (_backgroundAudio[i] != null)
-                _backgroundAudio[i].UnPause();
+        for (int i = 0; i < GameManager.Instance.AllAudio.Length; i++)
+            if (GameManager.Instance.AllAudio[i] != null)
+                GameManager.Instance.AllAudio[i].UnPause();
 
         _pauseMenuAudio.PlayOneShot(_openMenuSFX[1], 0.2f);
     }

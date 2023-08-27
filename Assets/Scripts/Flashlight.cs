@@ -22,6 +22,12 @@ public class Flashlight : MonoBehaviour
     [SerializeField]
     Image _flashlightUI;
 
+    [SerializeField]
+    Image _flashlightBackground;
+
+    [SerializeField]
+    GameObject _fKeyUI;
+
     Animator _flashlightAnimator;
 
     [SerializeField]
@@ -53,6 +59,9 @@ public class Flashlight : MonoBehaviour
                 0,
                 _maxFlashlightCharge
             );
+
+            _fKeyUI.SetActive(false);
+            _flashlightBackground.gameObject.SetActive(true);
         }
         else
         {
@@ -61,6 +70,9 @@ public class Flashlight : MonoBehaviour
                 0,
                 _maxFlashlightCharge
             );
+
+            _fKeyUI.SetActive(true);
+            _flashlightBackground.gameObject.SetActive(false);
         }
 
         if (_flashlightCharge > _maxFlashlightCharge * 0.8f)
@@ -74,17 +86,20 @@ public class Flashlight : MonoBehaviour
         else if (_flashlightCharge > _maxFlashlightCharge * 0.4f)
         {
             _flashlightUI.sprite = _flashlightTextures[3];
-            _flashlightUI.color = Color.white;
+            _flashlightUI.color = Color.green;
+            _flashlightBackground.color = Color.green * 0.5f;
         }
         else if (_flashlightCharge > _maxFlashlightCharge * 0.2f)
         {
             _flashlightUI.sprite = _flashlightTextures[2];
             _flashlightUI.color = Color.yellow;
+            _flashlightBackground.color = Color.yellow * 0.5f;
         }
         else if (_flashlightCharge > 0.5f)
         {
             _flashlightUI.sprite = _flashlightTextures[1];
             _flashlightUI.color = Color.red;
+            _flashlightBackground.color = Color.red * 0.5f;
         }
         else if (_flashlightCharge > 0)
         {

@@ -13,7 +13,7 @@ public class ItemCheckForPlayer : MonoBehaviour
     TextMeshProUGUI _tutorialText;
 
     RecordPlayer _recordPlayer;
-    AudioSource _recordPlayerAudio;
+    AudioSource _itemAudio;
 
     [SerializeField]
     AudioSource _SFXAudio;
@@ -21,15 +21,30 @@ public class ItemCheckForPlayer : MonoBehaviour
     [SerializeField]
     AudioClip _switchSFX;
 
+    // [SerializeField]
+    // AudioClip _easterEggSFX;
+
+    // [SerializeField]
+    // AudioClip[] _instrumentSFX;
+
+    [SerializeField]
+    AudioClip[] _toiletSFX;
+
+    [SerializeField]
+    LayerMask _layerMask;
+
+    // int _easterEggCounter = 0;
+
     MeshRenderer _tvRenderer;
     bool _tvOn = true;
     bool _isTriggered = false;
 
     enum Furniture
     {
-        Piano,
+        Instrument,
         TV,
-        RecordPlayer
+        RecordPlayer,
+        Toilet
     }
 
     [SerializeField]
@@ -40,15 +55,18 @@ public class ItemCheckForPlayer : MonoBehaviour
 
     private void Start()
     {
-        if (furni == Furniture.Piano) { }
-        else if (furni == Furniture.TV)
+        if (furni == Furniture.TV)
         {
             _tvRenderer = _itemOutline.GetComponent<MeshRenderer>();
         }
         else if (furni == Furniture.RecordPlayer)
         {
             _recordPlayer = _itemOutline.GetComponent<RecordPlayer>();
-            _recordPlayerAudio = _itemOutline.GetComponent<AudioSource>();
+            _itemAudio = _itemOutline.GetComponent<AudioSource>();
+        }
+        else if (furni == Furniture.Instrument || furni == Furniture.Toilet)
+        {
+            _itemAudio = _itemOutline.GetComponent<AudioSource>();
         }
     }
 
@@ -56,7 +74,33 @@ public class ItemCheckForPlayer : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact") && _isTriggered)
         {
-            if (furni == Furniture.Piano) { }
+            if (furni == Furniture.Instrument)
+            {
+                if (_itemAudio.isPlaying)
+                {
+                    _itemAudio.Pause();
+                }
+                else
+                {
+                    _itemAudio.Play();
+                }
+
+                // _itemAudio.Stop();
+
+                // if (_easterEggCounter < 7)
+                // {
+                //     _easterEggCounter++;
+                //     _itemAudio.PlayOneShot(
+                //         _instrumentSFX[Random.Range(0, _instrumentSFX.Length)],
+                //         1f
+                //     );
+                // }
+                // else
+                // {
+                //     _easterEggCounter = 0;
+                //     _itemAudio.PlayOneShot(_easterEggSFX, 1f);
+                // }
+            }
             else if (furni == Furniture.TV)
             {
                 if (_tvOn)
@@ -76,14 +120,20 @@ public class ItemCheckForPlayer : MonoBehaviour
             {
                 _recordPlayer.recordPlayerActive = !_recordPlayer.recordPlayerActive;
 
-                if (_recordPlayerAudio.isPlaying)
+                if (_itemAudio.isPlaying)
                 {
-                    _recordPlayerAudio.Pause();
+                    _itemAudio.Pause();
                 }
                 else
                 {
-                    _recordPlayerAudio.Play();
+                    _itemAudio.Play();
                 }
+            }
+            else if (furni == Furniture.Toilet)
+            {
+                _itemAudio.Stop();
+
+                _itemAudio.PlayOneShot(_toiletSFX[Random.Range(0, _toiletSFX.Length)], 1f);
             }
         }
     }
@@ -94,7 +144,7 @@ public class ItemCheckForPlayer : MonoBehaviour
         {
             Ray rayOrigin = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            Physics.Raycast(rayOrigin, out rayHit);
+            Physics.Raycast(rayOrigin, out rayHit, Mathf.Infinity, ~(_layerMask));
             _watchingItem = _itemOutline.transform == rayHit.transform;
 
             if (_watchingItem)
@@ -104,9 +154,16 @@ public class ItemCheckForPlayer : MonoBehaviour
 
                 _tutorialText.transform.parent.gameObject.SetActive(true);
 
-                if (furni == Furniture.Piano)
+                if (furni == Furniture.Instrument)
                 {
-                    _tutorialText.text = "Play Piano";
+                    if (_itemAudio.isPlaying)
+                    {
+                        _tutorialText.text = "Stop Playing";
+                    }
+                    else
+                    {
+                        _tutorialText.text = "Play " + _itemOutline.gameObject.name;
+                    }
                 }
                 else if (furni == Furniture.TV)
                 {
@@ -121,7 +178,7 @@ public class ItemCheckForPlayer : MonoBehaviour
                 }
                 else if (furni == Furniture.RecordPlayer)
                 {
-                    if (_recordPlayerAudio.isPlaying)
+                    if (_itemAudio.isPlaying)
                     {
                         _tutorialText.text = "Switch OFF";
                     }
@@ -129,6 +186,10 @@ public class ItemCheckForPlayer : MonoBehaviour
                     {
                         _tutorialText.text = "Switch ON";
                     }
+                }
+                else if (furni == Furniture.Toilet)
+                {
+                    _tutorialText.text = "Flush Toilet";
                 }
             }
             else
