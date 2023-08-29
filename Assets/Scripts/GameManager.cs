@@ -45,12 +45,6 @@ public class GameManager : MonoBehaviour
     AudioClip _whiteNoiseSFX;
 
     [SerializeField]
-    Camera _cameraB;
-
-    [SerializeField]
-    Material _cameraMatB;
-
-    [SerializeField]
     float _timeOn = 0.2f;
 
     [SerializeField]
@@ -59,17 +53,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-    }
-
-    private void Start()
-    {
-        if (_cameraB.targetTexture != null)
-        {
-            _cameraB.targetTexture.Release();
-        }
-
-        _cameraB.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
-        _cameraMatB.mainTexture = _cameraB.targetTexture;
     }
 
     public IEnumerator GameOver()
@@ -99,22 +82,28 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator AnimateScaryBender()
     {
-        yield return new WaitForSecondsRealtime(Random.Range(0.05f, _timeOn));
-        _scaryBenderAnimator.SetBool("BenderOn", true);
+        RectTransform scaryBenderTransform = _scaryBenderAnimator.GetComponent<RectTransform>();
+        float initialScaryBenderX = scaryBenderTransform.position.x;
 
-        _scaryBenderAnimator.transform.localScale = Vector3.one;
-        _scaryBenderAnimator.transform.localScale *= 1 + Random.Range(0f, 1f);
+        for (int i = 0; i < Random.Range(4, 8); i++)
+        {
+            yield return new WaitForSecondsRealtime(Random.Range(0.05f, _timeOn));
+            _scaryBenderAnimator.SetBool("BenderOn", true);
 
-        _scaryBenderAnimator.transform.position = new Vector3(
-            Random.Range(-200f, 200f),
-            _scaryBenderAnimator.transform.position.y,
-            _scaryBenderAnimator.transform.position.z
-        );
+            scaryBenderTransform.position = new Vector3(
+                initialScaryBenderX + Random.Range(-250f, 250f),
+                scaryBenderTransform.position.y,
+                scaryBenderTransform.position.z
+            );
 
-        yield return new WaitForSecondsRealtime(Random.Range(0.1f, _timeOff));
-        _scaryBenderAnimator.SetBool("BenderOn", false);
+            scaryBenderTransform.localScale = Vector3.one;
+            scaryBenderTransform.localScale *= 1 + Random.Range(0f, 1f);
 
-        StartCoroutine(AnimateScaryBender());
+            yield return new WaitForSecondsRealtime(Random.Range(0.1f, _timeOff));
+            _scaryBenderAnimator.SetBool("BenderOn", false);
+        }
+
+        //StartCoroutine(AnimateScaryBender());
     }
 
     public bool IsGameOver()

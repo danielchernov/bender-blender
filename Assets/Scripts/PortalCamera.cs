@@ -13,6 +13,23 @@ public class PortalCamera : MonoBehaviour
     [SerializeField]
     Transform _otherPortal;
 
+    [SerializeField]
+    Camera _cameraB;
+
+    [SerializeField]
+    Material _cameraMatB;
+
+    private void Start()
+    {
+        if (_cameraB.targetTexture != null)
+        {
+            _cameraB.targetTexture.Release();
+        }
+
+        _cameraB.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        _cameraMatB.mainTexture = _cameraB.targetTexture;
+    }
+
     private void LateUpdate()
     {
         Vector3 playerOffsetFromPortal = _playerCamera.position - _otherPortal.position;
