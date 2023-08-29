@@ -65,8 +65,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //print("Grounded:" + _isGrounded);
-
         Jump();
 
         Movement();

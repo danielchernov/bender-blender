@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class RestartOnFall : MonoBehaviour
 {
+    [SerializeField]
+    Vector3 _positionToSpawn;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            other.transform.position = new Vector3(30, 15, 21);
+            other.transform.position = _positionToSpawn;
             print("Fell off!");
         }
     }

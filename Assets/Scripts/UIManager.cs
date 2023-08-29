@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     GameObject pauseMenu;
 
+    [SerializeField]
+    EndingManager _endingManager;
+
     void Awake()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -25,7 +28,10 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         if (
-            pauseMenu != null && Input.GetButtonDown("Cancel") && !GameManager.Instance.IsGameOver()
+            pauseMenu != null
+            && Input.GetButtonDown("Cancel")
+            && !GameManager.Instance.IsGameOver()
+            && !_endingManager.NoMoPause
         )
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);

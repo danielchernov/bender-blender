@@ -108,7 +108,7 @@ public class Flashlight : MonoBehaviour
         else if (_flashlightCharge <= 0)
         {
             _flashlight.SetActive(!_flashlight.activeSelf);
-            _sfxAudio.PlayOneShot(_sfxClip, 1f);
+            _sfxAudio.PlayOneShot(_sfxClip, 0.5f);
         }
     }
 

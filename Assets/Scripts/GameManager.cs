@@ -22,10 +22,16 @@ public class GameManager : MonoBehaviour
     GameObject _gameOverScreen;
 
     [SerializeField]
+    Animator _scaryBenderAnimator;
+
+    [SerializeField]
     GameObject _bender;
 
     [SerializeField]
     AudioSource _sfxAudio;
+
+    [SerializeField]
+    AudioSource _bgmAudio;
 
     public AudioSource[] AllAudio;
 
@@ -36,10 +42,19 @@ public class GameManager : MonoBehaviour
     AudioClip[] _benderLaughSFX;
 
     [SerializeField]
+    AudioClip _whiteNoiseSFX;
+
+    [SerializeField]
     Camera _cameraB;
 
     [SerializeField]
     Material _cameraMatB;
+
+    [SerializeField]
+    float _timeOn = 0.2f;
+
+    [SerializeField]
+    float _timeOff = 1f;
 
     private void Awake()
     {
@@ -59,8 +74,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
-        _bender.SetActive(false);
         _gameOverScreen.SetActive(true);
+        _bender.SetActive(false);
+
+        StartCoroutine(AnimateScaryBender());
 
         for (int i = 0; i < AllAudio.Length; i++)
             if (AllAudio[i] != null)
@@ -70,15 +87,43 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        _sfxAudio.PlayOneShot(_deathSFX[Random.Range(0, _deathSFX.Length)], 1);
+        _sfxAudio.PlayOneShot(_deathSFX[Random.Range(0, _deathSFX.Length)], 0.8f);
+        _bgmAudio.clip = (_whiteNoiseSFX);
+        _bgmAudio.volume = 0.01f;
+        _bgmAudio.Play();
 
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(1f);
 
-        _sfxAudio.PlayOneShot(_benderLaughSFX[Random.Range(0, _benderLaughSFX.Length)], 1);
+        _sfxAudio.PlayOneShot(_benderLaughSFX[Random.Range(0, _benderLaughSFX.Length)], 1f);
+    }
+
+    private IEnumerator AnimateScaryBender()
+    {
+        yield return new WaitForSecondsRealtime(Random.Range(0.05f, _timeOn));
+        _scaryBenderAnimator.SetBool("BenderOn", true);
+
+        _scaryBenderAnimator.transform.localScale = Vector3.one;
+        _scaryBenderAnimator.transform.localScale *= 1 + Random.Range(0f, 1f);
+
+        _scaryBenderAnimator.transform.position = new Vector3(
+            Random.Range(-200f, 200f),
+            _scaryBenderAnimator.transform.position.y,
+            _scaryBenderAnimator.transform.position.z
+        );
+
+        yield return new WaitForSecondsRealtime(Random.Range(0.1f, _timeOff));
+        _scaryBenderAnimator.SetBool("BenderOn", false);
+
+        StartCoroutine(AnimateScaryBender());
     }
 
     public bool IsGameOver()
     {
         return _gameOverScreen.activeSelf;
+    }
+
+    public void PlayGameOver()
+    {
+        StartCoroutine(GameOver());
     }
 }

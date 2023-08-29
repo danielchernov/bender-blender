@@ -91,18 +91,18 @@ public class BenderController : MonoBehaviour
 
             float newAlpha = Mathf.InverseLerp(_distanceToCloseIn, 5, distanceToPlayer);
 
-            _whiteNoiseAudio.volume = (Mathf.Pow(newAlpha, 2)) * 0.2f;
+            _whiteNoiseAudio.volume = (Mathf.Pow(newAlpha, 2)) * 0.5f;
 
             _benderClosingIn.color = new Color(
-                1f - (newAlpha / 2f),
-                1f - (newAlpha / 2f),
-                1f - (newAlpha / 2f),
+                1f - (newAlpha / 1.2f),
+                1f - (newAlpha / 1.2f),
+                1f - (newAlpha / 1.2f),
                 Mathf.Pow(newAlpha, 4)
             );
 
             if (distanceToPlayer <= 5)
             {
-                StartCoroutine(GameManager.Instance.GameOver());
+                GameManager.Instance.PlayGameOver();
             }
         }
         else if (_benderClosingIn.transform.parent.gameObject.activeSelf)
@@ -126,7 +126,7 @@ public class BenderController : MonoBehaviour
 
                 _benderVoiceAudio.PlayOneShot(
                     _benderVoiceSFX[Random.Range(0, _benderVoiceSFX.Length)],
-                    1.2f
+                    1f
                 );
 
                 _benderEyesLights[0].color = Color.red;

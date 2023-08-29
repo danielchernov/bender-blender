@@ -1265,7 +1265,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "     - Move\nHold    - Run\n     - Jump\n  - Interact\n  - Turn Flashlight
-    ON/OFF\n\nFind the key to open the main door and escape the house."
+    ON/OFF\n\nFind 3 keys to open the main door and escape the house."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
   m_sharedMaterial: {fileID: -6943247214261959840, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
@@ -4300,8 +4300,11 @@ MonoBehaviour:
     - Gabies Assets\nStellar Sky - Satsuru\nMedieval Tavern Pack - 3DeLucas\nRecord
     Player - VIS Games\nTV Set - Dmitriy Dryzhak\nFree Rug Pack - Azerilo\nRetro
     Lamps v.1 - Artur G.\nSimple Garage - AiKodex\nGardening Tools Pack - Donopardo\n15
-    low poly models - Rob Iuo\nApartment Kit - Brick Project Studio\nToon Furniture
-    - Elcanetay\nBig Furniture Pack - Vertex Studio\nSaxophone Model - Herminio Nieves"
+    low poly models - Rob Iuo\nApartment Kit - Brick Project Studio\nFast Food Restaurant
+    Kit - Brick Project Studio\nToon Furniture - Elcanetay\nBig Furniture Pack -
+    Vertex Studio\nSaxophone Model - Herminio Nieves\nBed & Bath Furniture Pack -
+    Pepperjack\nClock Free - Webcadabra\nLow Poly City Pack Collection - Quaint Game
+    Studio\nQuick Outline - Chris Nolet"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
   m_sharedMaterial: {fileID: -6943247214261959840, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
@@ -5265,60 +5268,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2104030549
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2104030551}
-  - component: {fileID: 2104030550}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2104030550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104030549}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 108c8647aec42994eb501fc5b838a0e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameOverScreen: {fileID: 0}
-  _bender: {fileID: 0}
-  _sfxAudio: {fileID: 0}
-  AllAudio:
-  - {fileID: 2107435970}
-  - {fileID: 227465471}
-  _deathSFX: []
-  _benderLaughSFX: []
-  _cameraB: {fileID: 0}
-  _cameraMatB: {fileID: 0}
---- !u!4 &2104030551
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2104030549}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2106480889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5766,4 +5715,3 @@ SceneRoots:
   - {fileID: 553586308}
   - {fileID: 742010309}
   - {fileID: 86117801}
-  - {fileID: 2104030551}

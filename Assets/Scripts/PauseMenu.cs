@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    // [SerializeField]
-    // AudioSource[] _backgroundAudio;
-
     [SerializeField]
     AudioSource _pauseMenuAudio;
 

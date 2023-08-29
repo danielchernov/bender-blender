@@ -13,6 +13,9 @@ public class PortalTeleporter : MonoBehaviour
     [SerializeField]
     GameObject _house;
 
+    [SerializeField]
+    GameObject _endingManager;
+
     bool _isTriggered = false;
 
     void Update()
@@ -20,10 +23,6 @@ public class PortalTeleporter : MonoBehaviour
         if (_isTriggered)
         {
             Vector3 portalToPlayer = _player.position - transform.position;
-            // float dotProduct = Vector3.Dot(transform.up, portalToPlayer);
-
-            // if (dotProduct < 0f)
-            // {
 
             float rotationDiff = -Quaternion.Angle(transform.rotation, _receiver.rotation);
             rotationDiff += 180;
@@ -31,15 +30,12 @@ public class PortalTeleporter : MonoBehaviour
             Vector3 positionOffset = Quaternion.Euler(0f, rotationDiff, 0f) * portalToPlayer;
             _player.position = _receiver.position + positionOffset;
             _player.Rotate(Vector3.up, rotationDiff);
-            // Debug.Break();
 
             _house.SetActive(false);
             _receiver.gameObject.SetActive(false);
-
-            // print("Teleported to " + _receiver);
+            _endingManager.SetActive(true);
 
             _isTriggered = false;
-            // }
         }
     }
 

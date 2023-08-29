@@ -67,6 +67,11 @@ public class ItemCheckForPlayer : MonoBehaviour
         else if (furni == Furniture.Instrument || furni == Furniture.Toilet)
         {
             _itemAudio = _itemOutline.GetComponent<AudioSource>();
+
+            if (_itemAudio == null)
+            {
+                _itemAudio = _itemOutline.GetComponentInChildren<AudioSource>();
+            }
         }
     }
 
