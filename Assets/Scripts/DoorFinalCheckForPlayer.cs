@@ -46,7 +46,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)
                 {
                     _ending.SetActive(true);
-                    _doorAnimator.SetInteger("DoorOpened", -1);
+                    _doorAnimator.SetInteger("DoorOpened", 1);
                     _doorAudio.PlayOneShot(_doorSFX[0], 0.5f);
                 }
             }
@@ -66,7 +66,7 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
 
             _watchingColliders = transform == rayHit.transform;
 
-            if ((_watchingDoor || _watchingColliders) && hasKey == 3)
+            if ((_watchingDoor || _watchingColliders) && hasKey == 3 && !_ending.activeSelf)
             {
                 _isTriggered = true;
                 _doorOutline.enabled = true;
@@ -102,6 +102,10 @@ public class DoorFinalCheckForPlayer : MonoBehaviour
                     {
                         _specialText.text = "Need to find 3 keys to open the door";
                     }
+                }
+                else if (_doorAnimator.GetInteger("DoorOpened") == 1)
+                {
+                    _tutorialText.transform.parent.gameObject.SetActive(false);
                 }
             }
         }

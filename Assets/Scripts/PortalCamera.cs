@@ -26,7 +26,14 @@ public class PortalCamera : MonoBehaviour
             _cameraB.targetTexture.Release();
         }
 
-        _cameraB.targetTexture = new RenderTexture(Screen.width, Screen.height, 24);
+        RenderTexture camTexture = new RenderTexture(
+            Screen.width,
+            Screen.height,
+            24,
+            RenderTextureFormat.DefaultHDR
+        );
+
+        _cameraB.targetTexture = camTexture;
         _cameraMatB.mainTexture = _cameraB.targetTexture;
     }
 

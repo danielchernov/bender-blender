@@ -177,7 +177,7 @@ PlayerSettings:
   CreateWallpaper: 0
   APKExpansionFiles: 0
   keepLoadedShadersAlive: 0
-  StripUnusedMeshComponents: 1
+  StripUnusedMeshComponents: 0
   strictShaderVariantMatching: 0
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
@@ -282,7 +282,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 3628cadeb089f774c897f3fe8cf3f2b9, type: 3}
+      m_Icon: {fileID: 2800000, guid: 619c085a23dcef8489ddf762ab267019, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

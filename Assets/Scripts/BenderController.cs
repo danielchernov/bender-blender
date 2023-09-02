@@ -67,6 +67,15 @@ public class BenderController : MonoBehaviour
         _benderAnimator = GetComponentInChildren<Animator>();
     }
 
+    private void OnDisable()
+    {
+        if (!GameManager.Instance.IsGameOver())
+        {
+            _benderClosingIn.transform.parent.gameObject.SetActive(false);
+            _whiteNoiseAudio.volume = 0;
+        }
+    }
+
     void Update()
     {
         Ray rayOrigin = new Ray(transform.position, (_player.position - transform.position));
@@ -115,8 +124,6 @@ public class BenderController : MonoBehaviour
         {
             if (_raycastHit)
             {
-                //StopCoroutine(WalkingRoutine);
-
                 _randomNumber = Random.Range(0, 4);
 
                 _benderAnimator.SetInteger("AltNumber", _randomNumber);
@@ -152,9 +159,25 @@ public class BenderController : MonoBehaviour
 
         doorCollider.isTrigger = true;
 
+        string doorName = collision.gameObject.name;
+
         if (doorAnim.GetInteger("DoorOpened") == 0)
         {
-            doorAnim.SetInteger("DoorOpened", -1);
+            if (
+                doorName == "Door1"
+                || doorName == "Door4"
+                || doorName == "Door5"
+                || doorName == "Door7"
+                || doorName == "Door10"
+                || doorName == "Door11"
+            )
+            {
+                doorAnim.SetInteger("DoorOpened", 1);
+            }
+            else
+            {
+                doorAnim.SetInteger("DoorOpened", -1);
+            }
         }
 
         yield return new WaitForSeconds(1);

@@ -42,7 +42,7 @@ public class EndingManager : MonoBehaviour
         for (int i = 1; i < _creditsLines.Length; i++)
         {
             _creditsLines[i].SetActive(true);
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1.15f);
         }
 
         yield return new WaitForSeconds(2);
@@ -51,7 +51,7 @@ public class EndingManager : MonoBehaviour
 
         _fadeOutScreen.SetActive(true);
 
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(6);
 
         _thanksForPlaying.SetActive(true);
 

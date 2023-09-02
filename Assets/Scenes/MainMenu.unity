@@ -1773,6 +1773,7 @@ MonoBehaviour:
   creditsMenu: {fileID: 410611461}
   controlsMenu: {fileID: 1884901940}
   pauseMenu: {fileID: 0}
+  _endingManager: {fileID: 0}
 --- !u!95 &486824305
 Animator:
   serializedVersion: 5
@@ -2298,6 +2299,7 @@ MonoBehaviour:
   creditsMenu: {fileID: 0}
   controlsMenu: {fileID: 0}
   pauseMenu: {fileID: 0}
+  _endingManager: {fileID: 0}
 --- !u!114 &742010306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4296,15 +4298,16 @@ MonoBehaviour:
     s\xFC\xDFer Tod\" by Arianne Schreiber & Hideaki Anno\n\"The Simpsons Treehouse
     of Horror II End Credits\" - Danny Elfman\n\"Jazzman\" - Al Jean and Mike Reiss\n\"Happy
     Birthday, Lisa\" - Michael Jackson\n\"Union Strike Folk Song (Parts 1 & 2)\"
-    - Jeff Martin\n\n<b>Assets:</b>\nSimple Water Shader - IgniteCoders\nSimple Keys
-    - Gabies Assets\nStellar Sky - Satsuru\nMedieval Tavern Pack - 3DeLucas\nRecord
-    Player - VIS Games\nTV Set - Dmitriy Dryzhak\nFree Rug Pack - Azerilo\nRetro
-    Lamps v.1 - Artur G.\nSimple Garage - AiKodex\nGardening Tools Pack - Donopardo\n15
-    low poly models - Rob Iuo\nApartment Kit - Brick Project Studio\nFast Food Restaurant
-    Kit - Brick Project Studio\nToon Furniture - Elcanetay\nBig Furniture Pack -
-    Vertex Studio\nSaxophone Model - Herminio Nieves\nBed & Bath Furniture Pack -
-    Pepperjack\nClock Free - Webcadabra\nLow Poly City Pack Collection - Quaint Game
-    Studio\nQuick Outline - Chris Nolet"
+    - Jeff Martin\n\n<b>Assets:</b>\n15 Low Poly models - Rob Iuo\r\n4 Snow Materials
+    - Danil Piskor\n\rApartment Kit - Brick Project Studio\r\n\rBed & Bath Furniture
+    Pack - Pepperjack\r\n\rBig Furniture Pack - Vertex Studio\r\n\rClock Free - Webcadabra\r\n\rFast
+    Food Restaurant Kit - Brick Project Studio\r\n\rFree Rug Pack - Azerilo\r\n\rGardening
+    Tools Pack - Donopardo\r\n\rLow Poly City Pack Collection - Quaint Game Studio\r\n\rMedieval
+    Tavern Pack - 3DeLucas\r\n\rQuick Outline - Chris Nolet\r\n\rRecord Player -
+    VIS Games\r\n\rRetro Lamps v.1 - Artur G.\r\n\rSaxophone Model - Herminio Nieves\r\n\rSimple
+    Garage - AiKodex\r\n\rSimple Keys - Gabies Assets\r\n\rSimple Water Shader -
+    IgniteCoders\r\n\rStellar Sky - Satsuru\r\n\rToon Furniture - Elcanetay\r\nTV
+    Set - Dmitriy Dryzhak"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
   m_sharedMaterial: {fileID: -6943247214261959840, guid: f66443be111bcd1459c4bdff342814a0, type: 2}
@@ -4331,8 +4334,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 16
+  m_fontSizeBase: 16
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

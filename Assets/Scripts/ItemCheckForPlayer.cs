@@ -21,19 +21,11 @@ public class ItemCheckForPlayer : MonoBehaviour
     [SerializeField]
     AudioClip _switchSFX;
 
-    // [SerializeField]
-    // AudioClip _easterEggSFX;
-
-    // [SerializeField]
-    // AudioClip[] _instrumentSFX;
-
     [SerializeField]
     AudioClip[] _toiletSFX;
 
     [SerializeField]
     LayerMask _layerMask;
-
-    // int _easterEggCounter = 0;
 
     MeshRenderer _tvRenderer;
     bool _tvOn = true;
@@ -89,22 +81,6 @@ public class ItemCheckForPlayer : MonoBehaviour
                 {
                     _itemAudio.Play();
                 }
-
-                // _itemAudio.Stop();
-
-                // if (_easterEggCounter < 7)
-                // {
-                //     _easterEggCounter++;
-                //     _itemAudio.PlayOneShot(
-                //         _instrumentSFX[Random.Range(0, _instrumentSFX.Length)],
-                //         1f
-                //     );
-                // }
-                // else
-                // {
-                //     _easterEggCounter = 0;
-                //     _itemAudio.PlayOneShot(_easterEggSFX, 1f);
-                // }
             }
             else if (furni == Furniture.TV)
             {
@@ -112,13 +88,13 @@ public class ItemCheckForPlayer : MonoBehaviour
                 {
                     _tvRenderer.materials[1].color = Color.black;
                     _tvOn = false;
-                    _SFXAudio.PlayOneShot(_switchSFX, 0.5f);
+                    _SFXAudio.PlayOneShot(_switchSFX, 1f);
                 }
                 else
                 {
                     _tvRenderer.materials[1].color = Color.white;
                     _tvOn = true;
-                    _SFXAudio.PlayOneShot(_switchSFX, 0.5f);
+                    _SFXAudio.PlayOneShot(_switchSFX, 1f);
                 }
             }
             else if (furni == Furniture.RecordPlayer)
