@@ -22,9 +22,9 @@ public class FollowObject : MonoBehaviour
         if (_isSax)
         {
             _collider.center = new Vector3(
-                _objectToFollow.localPosition.x - 4,
-                _objectToFollow.localPosition.y + 2,
-                _objectToFollow.localPosition.z
+                _objectToFollow.localPosition.x,
+                _objectToFollow.localPosition.y + 4,
+                _objectToFollow.localPosition.z + 5
             );
         }
         else

@@ -14,6 +14,8 @@ public class DoorCheckForPlayer : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _tutorialText;
 
+    GameObject _tutorialParent;
+
     [SerializeField]
     DoorCheckForPlayer _otherCollider;
 
@@ -26,6 +28,7 @@ public class DoorCheckForPlayer : MonoBehaviour
     private void Start()
     {
         _doorAnimator = _doorOutline.GetComponentInParent<Animator>();
+        _tutorialParent = _tutorialText.transform.parent.gameObject;
     }
 
     private void OnTriggerStay(Collider collider)
@@ -45,7 +48,7 @@ public class DoorCheckForPlayer : MonoBehaviour
                 _isTriggered = true;
                 _doorOutline.enabled = true;
 
-                _tutorialText.transform.parent.gameObject.SetActive(true);
+                _tutorialParent.SetActive(true);
 
                 if (_doorAnimator.GetInteger("DoorOpened") == 0)
                 {
@@ -61,7 +64,7 @@ public class DoorCheckForPlayer : MonoBehaviour
                 _isTriggered = false;
                 _doorOutline.enabled = false;
 
-                _tutorialText.transform.parent.gameObject.SetActive(false);
+                _tutorialParent.SetActive(false);
             }
         }
     }
@@ -73,7 +76,7 @@ public class DoorCheckForPlayer : MonoBehaviour
             _isTriggered = false;
             _doorOutline.enabled = false;
 
-            _tutorialText.transform.parent.gameObject.SetActive(false);
+            _tutorialParent.SetActive(false);
         }
     }
 

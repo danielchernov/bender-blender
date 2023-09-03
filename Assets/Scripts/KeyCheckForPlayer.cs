@@ -11,6 +11,8 @@ public class KeyCheckForPlayer : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _tutorialText;
 
+    GameObject _tutorialParent;
+
     [SerializeField]
     GameObject[] _keySprites;
 
@@ -24,6 +26,11 @@ public class KeyCheckForPlayer : MonoBehaviour
     AudioClip[] _keySFX;
 
     bool _isTriggered = false;
+
+    private void Start()
+    {
+        _tutorialParent = _tutorialText.transform.parent.gameObject;
+    }
 
     private void Update()
     {
@@ -45,10 +52,10 @@ public class KeyCheckForPlayer : MonoBehaviour
             }
 
             _keyOutline.enabled = false;
-            _tutorialText.transform.parent.gameObject.SetActive(false);
+            _tutorialParent.SetActive(false);
             _isTriggered = false;
 
-            _sfxAudio.PlayOneShot(_keySFX[Random.Range(0, _keySFX.Length)], 1f);
+            _sfxAudio.PlayOneShot(_keySFX[Random.Range(0, _keySFX.Length)], 0.7f);
 
             gameObject.SetActive(false);
         }
@@ -60,7 +67,7 @@ public class KeyCheckForPlayer : MonoBehaviour
         {
             _keyOutline.enabled = true;
 
-            _tutorialText.transform.parent.gameObject.SetActive(true);
+            _tutorialParent.SetActive(true);
             _tutorialText.text = "Grab Key";
 
             _isTriggered = true;
@@ -72,7 +79,7 @@ public class KeyCheckForPlayer : MonoBehaviour
         if (collider.tag == "Player")
         {
             _keyOutline.enabled = false;
-            _tutorialText.transform.parent.gameObject.SetActive(false);
+            _tutorialParent.SetActive(false);
             _isTriggered = false;
         }
     }

@@ -12,6 +12,8 @@ public class ItemCheckForPlayer : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _tutorialText;
 
+    GameObject _tutorialParent;
+
     RecordPlayer _recordPlayer;
     AudioSource _itemAudio;
 
@@ -47,6 +49,8 @@ public class ItemCheckForPlayer : MonoBehaviour
 
     private void Start()
     {
+        _tutorialParent = _tutorialText.transform.parent.gameObject;
+
         if (furni == Furniture.TV)
         {
             _tvRenderer = _itemOutline.GetComponent<MeshRenderer>();
@@ -88,13 +92,13 @@ public class ItemCheckForPlayer : MonoBehaviour
                 {
                     _tvRenderer.materials[1].color = Color.black;
                     _tvOn = false;
-                    _SFXAudio.PlayOneShot(_switchSFX, 1f);
+                    _SFXAudio.PlayOneShot(_switchSFX, 0.75f);
                 }
                 else
                 {
                     _tvRenderer.materials[1].color = Color.white;
                     _tvOn = true;
-                    _SFXAudio.PlayOneShot(_switchSFX, 1f);
+                    _SFXAudio.PlayOneShot(_switchSFX, 0.5f);
                 }
             }
             else if (furni == Furniture.RecordPlayer)
@@ -133,7 +137,7 @@ public class ItemCheckForPlayer : MonoBehaviour
                 _isTriggered = true;
                 _itemOutline.enabled = true;
 
-                _tutorialText.transform.parent.gameObject.SetActive(true);
+                _tutorialParent.SetActive(true);
 
                 if (furni == Furniture.Instrument)
                 {
@@ -178,6 +182,8 @@ public class ItemCheckForPlayer : MonoBehaviour
                 _isTriggered = false;
                 _itemOutline.enabled = false;
 
+                _tutorialParent.SetActive(false);
+
                 if (furni == Furniture.TV)
                 {
                     var materials = _tvRenderer.sharedMaterials.ToList();
@@ -190,7 +196,6 @@ public class ItemCheckForPlayer : MonoBehaviour
 
                     _tvRenderer.materials = materials.ToArray();
                 }
-                _tutorialText.transform.parent.gameObject.SetActive(false);
             }
         }
     }
@@ -201,6 +206,8 @@ public class ItemCheckForPlayer : MonoBehaviour
         {
             _isTriggered = false;
             _itemOutline.enabled = false;
+
+            _tutorialParent.gameObject.SetActive(false);
 
             if (furni == Furniture.TV)
             {
@@ -214,7 +221,6 @@ public class ItemCheckForPlayer : MonoBehaviour
 
                 _tvRenderer.materials = materials.ToArray();
             }
-            _tutorialText.transform.parent.gameObject.SetActive(false);
         }
     }
 }

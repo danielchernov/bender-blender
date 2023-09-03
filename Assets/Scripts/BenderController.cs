@@ -100,7 +100,7 @@ public class BenderController : MonoBehaviour
 
             float newAlpha = Mathf.InverseLerp(_distanceToCloseIn, 5, distanceToPlayer);
 
-            _whiteNoiseAudio.volume = (Mathf.Pow(newAlpha, 2)) * 0.5f;
+            _whiteNoiseAudio.volume = (Mathf.Pow(newAlpha, 2)) * 0.6f;
 
             _benderClosingIn.color = new Color(
                 1f - (newAlpha / 1.2f),

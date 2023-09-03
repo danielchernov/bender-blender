@@ -62,14 +62,14 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        _sfxAudio.PlayOneShot(_deathSFX[Random.Range(0, _deathSFX.Length)], 0.8f);
+        _sfxAudio.PlayOneShot(_deathSFX[Random.Range(0, _deathSFX.Length)], 0.75f);
         _bgmAudio.clip = (_whiteNoiseSFX);
-        _bgmAudio.volume = 0.01f;
+        _bgmAudio.volume = 0.007f;
         _bgmAudio.Play();
 
         yield return new WaitForSecondsRealtime(1f);
 
-        _sfxAudio.PlayOneShot(_benderLaughSFX[Random.Range(0, _benderLaughSFX.Length)], 1f);
+        _sfxAudio.PlayOneShot(_benderLaughSFX[Random.Range(0, _benderLaughSFX.Length)], 0.75f);
     }
 
     private IEnumerator AnimateScaryBender()
